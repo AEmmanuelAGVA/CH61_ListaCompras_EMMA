@@ -8,7 +8,7 @@ const productosTotal = document.getElementById("productosTotal");
 const precioTotal = document.getElementById("precioTotal");
 const tablaListaCompras = document.getElementById("tablaListaCompras");
 const cuerpoTabla = tablaListaCompras.getElementsByTagName("tbody").item(0);
-
+const btnClear = document.getElementById("btnClear");
 
 let cont = 0;
 let totalProductos = 0;
@@ -31,6 +31,32 @@ function validarCantidad(cantidad){
 function getPrecio(){
     return Math.round(Math.random()*10000)/100;
 };//getPrecio
+
+btnClear.addEventListener("click",function(event){
+    event.preventDefault();
+    localStorage.removeItem("Datos");
+    localStorage.removeItem("Resumen");
+
+    txtName.style.border = "";
+    txtNumber.style.border = "";
+    alertValidacionesTexto.innerHTML="";
+    alertValidaciones.style.display = "none";
+    txtName.value = "";
+    txtNumber.value ="";
+    txtName.focus();
+
+    cont = 0;
+    totalProductos = 0;
+    costoTotal = 0;
+
+    contadorProductos.innerText = cont;
+    productosTotal.innerText = totalProductos;
+    precioTotal.innerText = new Intl.NumberFormat("es-MX", 
+                    { style: "currency", currency: "MXN" }).format(costoTotal);                    
+   
+    cuerpoTabla.remove();
+
+});//Boton clear
 
 btnAgregar.addEventListener("click", function(event){
     event.preventDefault();
